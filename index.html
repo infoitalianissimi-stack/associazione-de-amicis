@@ -165,29 +165,100 @@
             <span class="quota-period">/ anno</span>
           </p>
           <ol class="flow-steps" aria-label="Percorso di iscrizione">
-            <li><span class="flow-num">1</span> Compila</li>
-            <li><span class="flow-num">2</span> Paga</li>
-            <li><span class="flow-num">3</span> Conferma</li>
+            <li><span class="flow-num">1</span> Registrati</li>
+            <li><span class="flow-num">2</span> Scarica</li>
+            <li><span class="flow-num">3</span> Firma</li>
+            <li><span class="flow-num">4</span> Consegna</li>
+            <li><span class="flow-num">5</span> Paga</li>
           </ol>
         </div>
 
         <article class="socio-step">
-          <h3><span class="step-num">1</span> Compila la richiesta di adesione</h3>
-          <p>Compila online la richiesta di adesione all’Associazione. Bastano pochi minuti.</p>
-          <!-- INSERIRE QUI LINK GOOGLE FORM ADESIONE -->
-          <!-- Quando il form è pronto, sostituisci il button disabilitato con:
-               <a class="btn btn--cta btn--large" href="URL_DEL_GOOGLE_FORM">Compila il modulo online</a>
-          -->
-          <button class="btn btn--cta btn--large" type="button" disabled>Modulo online in preparazione</button>
-          <div class="paper-alt" id="pdf-adesione-wrap" hidden>
-            <p class="or-sep">Preferisci il modulo cartaceo?</p>
-            <!-- INSERIRE QUI PDF MODULO ADESIONE -->
-            <a class="btn btn--secondary btn--large" href="assets/moduli/modulo-adesione.pdf">Scarica il modulo PDF</a>
+          <h3><span class="step-num">1</span> Registrati online</h3>
+          <p>Compila il modulo online per permetterci di registrare correttamente i dati del socio nel nostro archivio digitale.</p>
+          <a class="btn btn--cta btn--large" href="https://forms.gle/PpWA1PGhi1o6azej7" target="_blank" rel="noopener noreferrer">Registrati come socio</a>
+          <p class="paper-warning">La registrazione online non sostituisce la consegna del modulo cartaceo originale firmato.</p>
+        </article>
+
+        <article class="socio-step">
+          <h3><span class="step-num">2</span> Scarica il modulo</h3>
+          <p>Scarica il modulo di adesione e privacy, poi stampalo.</p>
+          <div id="pdf-adesione-wrap">
+            <!-- INSERIRE QUI PDF MODULO ADESIONE: assets/moduli/modulo-adesione-privacy.pdf -->
+            <a class="btn btn--secondary btn--large js-pdf-adesione" href="assets/moduli/modulo-adesione-privacy.pdf" target="_blank" rel="noopener noreferrer" type="application/pdf">Scarica modulo di adesione + privacy</a>
+            <p class="pdf-fallback" hidden>Modulo in preparazione</p>
           </div>
         </article>
 
         <article class="socio-step">
-          <h3><span class="step-num">2</span> Versa la quota annuale di 20 €</h3>
+          <h3><span class="step-num">3</span> Stampa, compila e firma</h3>
+          <p>Compila il modulo in tutte le sue parti e firma negli spazi richiesti.</p>
+          <p class="paper-warning">Il modulo deve essere consegnato in originale. Foto, scansioni o e-mail non sostituiscono l’originale firmato.</p>
+        </article>
+
+        <article class="socio-step">
+          <h3><span class="step-num">4</span> Consegna l’originale</h3>
+          <p>Consegna il modulo cartaceo originale firmato a un membro del Direttivo.</p>
+          <div class="board-grid">
+            <article class="board-card">
+              <div class="board-photo">
+                <!-- INSERIRE QUI FOTO DIRETTIVO: assets/direttivo/carlotta-airoldi.jpg -->
+                <img src="assets/direttivo/carlotta-airoldi.jpg" alt="" width="72" height="72" hidden onload="this.hidden=false" onerror="this.remove();">
+                <span class="board-initials" aria-hidden="true">CA</span>
+              </div>
+              <h4>Carlotta Airoldi</h4>
+              <p>Presidente</p>
+            </article>
+            <article class="board-card">
+              <div class="board-photo">
+                <!-- INSERIRE QUI FOTO DIRETTIVO: assets/direttivo/giulia-cloro.jpg -->
+                <img src="assets/direttivo/giulia-cloro.jpg" alt="" width="72" height="72" hidden onload="this.hidden=false" onerror="this.remove();">
+                <span class="board-initials" aria-hidden="true">GC</span>
+              </div>
+              <h4>Giulia Cloro</h4>
+              <p>Vicepresidente</p>
+            </article>
+            <article class="board-card">
+              <div class="board-photo">
+                <!-- INSERIRE QUI FOTO DIRETTIVO: assets/direttivo/maurizio-corona.jpg -->
+                <img src="assets/direttivo/maurizio-corona.jpg" alt="" width="72" height="72" hidden onload="this.hidden=false" onerror="this.remove();">
+                <span class="board-initials" aria-hidden="true">MC</span>
+              </div>
+              <h4>Maurizio Corona</h4>
+              <p>Direttivo</p>
+            </article>
+            <article class="board-card">
+              <div class="board-photo">
+                <!-- INSERIRE QUI FOTO DIRETTIVO: assets/direttivo/valeria-vannini.jpg -->
+                <img src="assets/direttivo/valeria-vannini.jpg" alt="" width="72" height="72" hidden onload="this.hidden=false" onerror="this.remove();">
+                <span class="board-initials" aria-hidden="true">VV</span>
+              </div>
+              <h4>Valeria Vannini</h4>
+              <p>Direttivo</p>
+            </article>
+            <article class="board-card">
+              <div class="board-photo">
+                <!-- INSERIRE QUI FOTO DIRETTIVO: assets/direttivo/consuelo-gallerani.jpg -->
+                <img src="assets/direttivo/consuelo-gallerani.jpg" alt="" width="72" height="72" hidden onload="this.hidden=false" onerror="this.remove();">
+                <span class="board-initials" aria-hidden="true">CG</span>
+              </div>
+              <h4>Consuelo Gallerani</h4>
+              <p>Direttivo</p>
+            </article>
+            <article class="board-card">
+              <div class="board-photo">
+                <!-- INSERIRE QUI FOTO DIRETTIVO: assets/direttivo/chiara-moranino.jpg -->
+                <img src="assets/direttivo/chiara-moranino.jpg" alt="" width="72" height="72" hidden onload="this.hidden=false" onerror="this.remove();">
+                <span class="board-initials" aria-hidden="true">CM</span>
+              </div>
+              <h4>Chiara Moranino</h4>
+              <p>Direttivo</p>
+            </article>
+          </div>
+        </article>
+
+        <article class="socio-step">
+          <h3><span class="step-num">5</span> Versa la quota annuale di 20 €</h3>
           <div class="pay-grid">
             <article class="pay-card pay-card--green">
               <h4>Contanti</h4>
@@ -215,11 +286,10 @@
           </div>
         </article>
 
-        <article class="socio-step">
-          <h3><span class="step-num">3</span> Invia la conferma</h3>
-          <p>Dopo il pagamento, inviaci una conferma così possiamo completare l’adesione.</p>
-          <a class="btn btn--secondary btn--large" href="mailto:associazionegenitorideamicis@gmail.com?subject=Conferma%20quota%20associativa%20De%20Amicis&amp;body=Buongiorno%2C%0A%0Ainvio%20la%20conferma%20del%20pagamento%20della%20quota%20associativa.%0A%0ANome%20e%20cognome%20del%20genitore%3A%0A%0ANome%20alunno%2Fa%3A%0A%0AClasse%3A%0A%0AMetodo%20di%20pagamento%20utilizzato%3A%0A%0AGrazie.">Invia conferma via e-mail</a>
-        </article>
+        <aside class="socio-complete" aria-label="Quando l’adesione è completa">
+          <h3>Quando l’adesione è completa?</h3>
+          <p>L’adesione viene completata quando l’Associazione ha ricevuto la registrazione online, il modulo cartaceo originale firmato e il pagamento della quota associativa.</p>
+        </aside>
       </div>
     </section>
 
@@ -246,9 +316,12 @@
 
         <article class="modulo-card">
           <h3>Diventa socio</h3>
-          <p>Unisciti a noi per l’anno scolastico in corso. Bastano pochi minuti per inviare la richiesta.</p>
-          <!-- INSERIRE QUI LINK GOOGLE FORM ADESIONE -->
-          <button class="btn btn--secondary" type="button" disabled>Modulo online in preparazione</button>
+          <p>Registrati online e scarica il modulo di adesione. L’adesione sarà completata con la consegna dell’originale cartaceo firmato e il pagamento della quota associativa.</p>
+          <div class="modulo-actions">
+            <a class="btn btn--cta" href="https://forms.gle/PpWA1PGhi1o6azej7" target="_blank" rel="noopener noreferrer">Registrati online</a>
+            <a class="btn btn--secondary" href="assets/moduli/modulo-adesione-privacy.pdf" target="_blank" rel="noopener noreferrer" type="application/pdf">Scarica modulo di adesione + privacy</a>
+          </div>
+          <p class="paper-warning">La registrazione online non sostituisce la consegna dell’originale cartaceo firmato.</p>
         </article>
 
         <div class="iniziative-block" id="iniziative">

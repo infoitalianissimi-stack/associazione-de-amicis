@@ -102,11 +102,13 @@
 
   var pdfWrap = document.getElementById("pdf-adesione-wrap");
   if (pdfWrap) {
-    var pdfLink = pdfWrap.querySelector("a[href$='modulo-adesione.pdf']");
-    var pdfHref = pdfLink ? pdfLink.getAttribute("href") : "assets/moduli/modulo-adesione.pdf";
+    var pdfLink = pdfWrap.querySelector(".js-pdf-adesione");
+    var pdfFallback = pdfWrap.querySelector(".pdf-fallback");
+    var pdfHref = pdfLink ? pdfLink.getAttribute("href") : "assets/moduli/modulo-adesione-privacy.pdf";
     fetch(pdfHref, { method: "HEAD" }).then(function (response) {
-      if (response.ok) {
-        pdfWrap.hidden = false;
+      if (response.status === 404 && pdfLink && pdfFallback) {
+        pdfLink.hidden = true;
+        pdfFallback.hidden = false;
       }
     }).catch(function () {});
   }
