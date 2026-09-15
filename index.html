@@ -156,7 +156,7 @@
     </section>
 
     <section class="section" id="diventa-socio">
-      <div class="container">
+      <div class="container socio-layout">
         <div class="socio-intro">
           <h2>Associati anche tu</h2>
           <p class="lead">Con la quota annuale di 20 € ci aiuti a finanziare nuovi progetti e ad acquistare materiali per le classi.</p>
@@ -164,44 +164,62 @@
             <span class="quota-amount">20 €</span>
             <span class="quota-period">/ anno</span>
           </p>
-          <ol class="flow-steps">
-            <li><span class="flow-num">1</span> Compila la richiesta</li>
-            <li><span class="flow-num">2</span> Versa la quota</li>
-            <li><span class="flow-num">3</span> Invia la conferma del pagamento</li>
+          <ol class="flow-steps" aria-label="Percorso di iscrizione">
+            <li><span class="flow-num">1</span> Compila</li>
+            <li><span class="flow-num">2</span> Paga</li>
+            <li><span class="flow-num">3</span> Conferma</li>
           </ol>
+        </div>
+
+        <article class="socio-step">
+          <h3><span class="step-num">1</span> Compila la richiesta di adesione</h3>
+          <p>Compila online la richiesta di adesione all’Associazione. Bastano pochi minuti.</p>
           <!-- INSERIRE QUI LINK GOOGLE FORM ADESIONE -->
           <!-- Quando il form è pronto, sostituisci il button disabilitato con:
-               <a class="btn btn--cta btn--large" href="URL_DEL_GOOGLE_FORM">Compila il modulo di adesione</a>
+               <a class="btn btn--cta btn--large" href="URL_DEL_GOOGLE_FORM">Compila il modulo online</a>
           -->
-          <p class="form-status">Modulo in preparazione</p>
-          <button class="btn btn--cta btn--large" type="button" disabled>Compila il modulo di adesione</button>
-        </div>
+          <button class="btn btn--cta btn--large" type="button" disabled>Modulo online in preparazione</button>
+          <div class="paper-alt" id="pdf-adesione-wrap" hidden>
+            <p class="or-sep">Preferisci il modulo cartaceo?</p>
+            <!-- INSERIRE QUI PDF MODULO ADESIONE -->
+            <a class="btn btn--secondary btn--large" href="assets/moduli/modulo-adesione.pdf">Scarica il modulo PDF</a>
+          </div>
+        </article>
 
-        <h3 class="pay-title">Come pagare la quota</h3>
-        <div class="pay-grid">
-          <article class="pay-card pay-card--green">
-            <h4>Contanti</h4>
-            <p>Puoi versare la quota associativa direttamente all’Associazione.</p>
-          </article>
+        <article class="socio-step">
+          <h3><span class="step-num">2</span> Versa la quota annuale di 20 €</h3>
+          <div class="pay-grid">
+            <article class="pay-card pay-card--green">
+              <h4>Contanti</h4>
+              <p>Puoi versare la quota associativa direttamente all’Associazione.</p>
+            </article>
 
-          <article class="pay-card pay-card--blue">
-            <h4>Bonifico</h4>
-            <p class="code-label">IBAN</p>
-            <p class="code-value" id="iban-value">IT12R0326822311053960576300</p>
-            <button class="btn btn--utility js-copy" type="button" data-copy="IT12R0326822311053960576300" data-copied="IBAN copiato ✓">Copia IBAN</button>
-          </article>
+            <article class="pay-card pay-card--blue">
+              <h4>Bonifico</h4>
+              <p class="code-label">IBAN</p>
+              <p class="code-value" id="iban-value">IT12R0326822311053960576300</p>
+              <button class="btn btn--utility js-copy" type="button" data-copy="IT12R0326822311053960576300" data-copied="IBAN copiato ✓">Copia IBAN</button>
+              <p class="code-label code-label--spaced">Causale</p>
+              <p class="code-value code-value--text">Quota associativa + Nome e Cognome del genitore</p>
+              <p class="code-example">Esempio: Quota associativa Mario Rossi</p>
+              <p class="code-hint">Inserisci il nome e cognome del genitore che effettua l’iscrizione.</p>
+              <button class="btn btn--utility js-copy" type="button" data-copy="Quota associativa + Nome e Cognome del genitore" data-copied="Causale copiata ✓">Copia causale</button>
+            </article>
 
-          <article class="pay-card pay-card--orange">
-            <h4>Hype</h4>
-            <p class="code-label">Codice negozio</p>
-            <p class="code-value" id="hype-value">76087</p>
-            <button class="btn btn--utility js-copy" type="button" data-copy="76087" data-copied="Codice Hype copiato ✓">Copia codice Hype</button>
-          </article>
-        </div>
-        <p class="pay-note">Dopo il versamento, invia la conferma del pagamento.</p>
-        <div class="confirm-wrap">
-          <a class="btn btn--secondary btn--large" href="mailto:associazionegenitorideamicis@gmail.com?subject=Conferma%20quota%20associativa%20De%20Amicis&amp;body=Buongiorno%2C%0A%0Ainvio%20la%20conferma%20del%20pagamento%20della%20quota%20associativa.%0A%0ANome%20e%20cognome%3A%0A%0ANome%20alunno%2Fa%3A%0A%0AClasse%3A%0A%0AGrazie.">Invia conferma pagamento via e-mail</a>
-        </div>
+            <article class="pay-card pay-card--orange">
+              <h4>Hype</h4>
+              <p class="code-label">Codice negozio</p>
+              <p class="code-value" id="hype-value">76087</p>
+              <button class="btn btn--utility js-copy" type="button" data-copy="76087" data-copied="Codice copiato ✓">Copia codice Hype</button>
+            </article>
+          </div>
+        </article>
+
+        <article class="socio-step">
+          <h3><span class="step-num">3</span> Invia la conferma</h3>
+          <p>Dopo il pagamento, inviaci una conferma così possiamo completare l’adesione.</p>
+          <a class="btn btn--secondary btn--large" href="mailto:associazionegenitorideamicis@gmail.com?subject=Conferma%20quota%20associativa%20De%20Amicis&amp;body=Buongiorno%2C%0A%0Ainvio%20la%20conferma%20del%20pagamento%20della%20quota%20associativa.%0A%0ANome%20e%20cognome%20del%20genitore%3A%0A%0ANome%20alunno%2Fa%3A%0A%0AClasse%3A%0A%0AMetodo%20di%20pagamento%20utilizzato%3A%0A%0AGrazie.">Invia conferma via e-mail</a>
+        </article>
       </div>
     </section>
 
@@ -230,11 +248,7 @@
           <h3>Diventa socio</h3>
           <p>Unisciti a noi per l’anno scolastico in corso. Bastano pochi minuti per inviare la richiesta.</p>
           <!-- INSERIRE QUI LINK GOOGLE FORM ADESIONE -->
-          <!-- Quando il form è pronto, sostituisci il button disabilitato con:
-               <a class="btn btn--secondary" href="URL_DEL_GOOGLE_FORM">Compila il modulo di adesione</a>
-          -->
-          <p class="form-status">Modulo in preparazione</p>
-          <button class="btn btn--secondary" type="button" disabled>Compila il modulo di adesione</button>
+          <button class="btn btn--secondary" type="button" disabled>Modulo online in preparazione</button>
         </article>
 
         <div class="iniziative-block" id="iniziative">
@@ -288,8 +302,8 @@
                   <!-- BADGE VANTAGGIO SOCI -->
                   <span class="partner-badge">Sconto soci</span>
                   <div class="partner-logo-box">
-                    <!-- INSERIRE QUI LOGO PARTNER: assets/partner/giovannacci.png -->
-                    <img class="partner-logo" src="assets/partner/giovannacci.png" alt="" width="220" height="120" onerror="this.hidden=true; this.parentElement.classList.add('is-fallback');">
+                    <!-- LOGO PARTNER: assets/partner/libreria_giovannacci.jpg -->
+                    <img class="partner-logo" src="assets/partner/libreria_giovannacci.jpg" alt="Libreria Giovannacci" width="220" height="120" onerror="this.hidden=true; this.parentElement.classList.add('is-fallback');">
                     <span class="partner-logo-fallback">Libreria Giovannacci</span>
                   </div>
                   <h3 class="partner-name">Libreria Giovannacci</h3>
@@ -332,8 +346,8 @@
                   <!-- BADGE VANTAGGIO SOCI -->
                   <span class="partner-badge">Sconto soci</span>
                   <div class="partner-logo-box">
-                    <!-- INSERIRE QUI LOGO PARTNER: assets/partner/angolo-della-gioia.png -->
-                    <img class="partner-logo" src="assets/partner/angolo-della-gioia.png" alt="" width="220" height="120" onerror="this.hidden=true; this.parentElement.classList.add('is-fallback');">
+                    <!-- LOGO PARTNER: assets/partner/langolo_della_gioia.jpg -->
+                    <img class="partner-logo" src="assets/partner/langolo_della_gioia.jpg" alt="Cartoleria L’Angolo della Gioia" width="220" height="120" onerror="this.hidden=true; this.parentElement.classList.add('is-fallback');">
                     <span class="partner-logo-fallback">L’Angolo della Gioia</span>
                   </div>
                   <h3 class="partner-name">Cartoleria L’Angolo della Gioia</h3>
@@ -375,8 +389,8 @@
                   <!-- BADGE VANTAGGIO SOCI -->
                   <span class="partner-badge">Sconto soci</span>
                   <div class="partner-logo-box">
-                    <!-- INSERIRE QUI LOGO PARTNER: assets/partner/belli-fuori.png -->
-                    <img class="partner-logo" src="assets/partner/belli-fuori.png" alt="" width="220" height="120" onerror="this.hidden=true; this.parentElement.classList.add('is-fallback');">
+                    <!-- LOGO PARTNER: assets/partner/belli_fuori.jpg -->
+                    <img class="partner-logo" src="assets/partner/belli_fuori.jpg" alt="Belli Fuori Abbigliamento" width="220" height="120" onerror="this.hidden=true; this.parentElement.classList.add('is-fallback');">
                     <span class="partner-logo-fallback">Belli Fuori</span>
                   </div>
                   <h3 class="partner-name">Belli Fuori Abbigliamento</h3>
@@ -419,8 +433,8 @@
                   <!-- BADGE VANTAGGIO SOCI -->
                   <span class="partner-badge">Sconto soci</span>
                   <div class="partner-logo-box">
-                    <!-- INSERIRE QUI LOGO PARTNER: assets/partner/rubik.png -->
-                    <img class="partner-logo" src="assets/partner/rubik.png" alt="" width="220" height="120" onerror="this.hidden=true; this.parentElement.classList.add('is-fallback');">
+                    <!-- LOGO PARTNER: assets/partner/rubik.jpg -->
+                    <img class="partner-logo" src="assets/partner/rubik.jpg" alt="Rubik" width="220" height="120" onerror="this.hidden=true; this.parentElement.classList.add('is-fallback');">
                     <span class="partner-logo-fallback">Rubik</span>
                   </div>
                   <h3 class="partner-name">Rubik</h3>

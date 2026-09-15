@@ -100,6 +100,17 @@
     });
   });
 
+  var pdfWrap = document.getElementById("pdf-adesione-wrap");
+  if (pdfWrap) {
+    var pdfLink = pdfWrap.querySelector("a[href$='modulo-adesione.pdf']");
+    var pdfHref = pdfLink ? pdfLink.getAttribute("href") : "assets/moduli/modulo-adesione.pdf";
+    fetch(pdfHref, { method: "HEAD" }).then(function (response) {
+      if (response.ok) {
+        pdfWrap.hidden = false;
+      }
+    }).catch(function () {});
+  }
+
   var track = document.querySelector(".partner-track");
   var prev = document.querySelector(".partner-arrow--prev");
   var next = document.querySelector(".partner-arrow--next");
