@@ -91,12 +91,178 @@
     button.addEventListener("click", function () {
       var value = button.getAttribute("data-copy") || "";
       copyText(value).catch(function () {});
-      button.textContent = "Copiato ✓";
+      button.textContent = button.getAttribute("data-copied") || "Copiato ✓";
       button.classList.add("is-copied");
       window.setTimeout(function () {
         button.textContent = original;
         button.classList.remove("is-copied");
       }, 2000);
     });
+  });
+
+  var track = document.querySelector(".partner-track");
+  var prev = document.querySelector(".partner-arrow--prev");
+  var next = document.querySelector(".partner-arrow--next");
+  var modal = document.getElementById("partner-modal");
+  var lastFocus = null;
+
+  function slideWidth() {
+    var slide = track && track.querySelector(".partner-slide");
+    if (!slide) {
+      return 0;
+    }
+    var styles = window.getComputedStyle(track);
+    var gap = parseFloat(styles.columnGap || styles.gap) || 16;
+    return slide.getBoundingClientRect().width + gap;
+  }
+
+  function updateArrows() {
+    if (!track || !prev || !next) {
+      return;
+    }
+    var max = track.scrollWidth - track.clientWidth - 4;
+    prev.disabled = track.scrollLeft <= 4;
+    next.disabled = track.scrollLeft >= max;
+  }
+
+  if (track && prev && next) {
+    prev.addEventListener("click", function () {
+      track.scrollBy({ left: -slideWidth(), behavior: "smooth" });
+    });
+    next.addEventListener("click", function () {
+      track.scrollBy({ left: slideWidth(), behavior: "smooth" });
+    });
+    track.addEventListener("scroll", updateArrows, { passive: true });
+    window.addEventListener("resize", updateArrows);
+    updateArrows();
+  }
+
+  function isFinePointer() {
+    return window.matchMedia("(hover: hover) and (pointer: fine)").matches;
+  }
+
+  document.querySelectorAll(".partner-slide").forEach(function (card) {
+    var maps = (card.getAttribute("data-maps") || "").trim();
+    var mapsLink = card.querySelector(".js-partner-maps");
+    if (maps && mapsLink) {
+      mapsLink.hidden = false;
+      mapsLink.href = maps;
+    }
+
+    card.addEventListener("click", function (event) {
+      if (isFinePointer()) {
+        return;
+      }
+      if (event.target.closest("a, button")) {
+        return;
+      }
+      document.querySelectorAll(".partner-slide.is-flipped").forEach(function (open) {
+        if (open !== card) {
+          open.classList.remove("is-flipped");
+        }
+      });
+      card.classList.toggle("is-flipped");
+    });
+
+    card.addEventListener("keydown", function (event) {
+      if (event.target !== card) {
+        return;
+      }
+      if (event.key !== "Enter" && event.key !== " ") {
+        return;
+      }
+      event.preventDefault();
+      if (isFinePointer()) {
+        return;
+      }
+      card.classList.toggle("is-flipped");
+    });
+  });
+
+  function textOrHide(el, value) {
+    if (!el) {
+      return;
+    }
+    if (value) {
+      el.hidden = false;
+      el.textContent = value;
+    } else {
+      el.hidden = true;
+      el.textContent = "";
+    }
+  }
+
+  function closePartnerModal() {
+    if (!modal || modal.hidden) {
+      return;
+    }
+    modal.hidden = true;
+    document.body.classList.remove("modal-open");
+    if (lastFocus && lastFocus.focus) {
+      lastFocus.focus();
+    }
+  }
+
+  function openPartnerModal(card, trigger) {
+    if (!modal) {
+      return;
+    }
+    lastFocus = trigger;
+    document.getElementById("partner-modal-title").textContent = card.getAttribute("data-name") || "";
+    document.getElementById("partner-modal-cat").textContent = card.getAttribute("data-category") || "";
+    textOrHide(document.getElementById("partner-modal-note"), (card.getAttribute("data-note") || "").trim());
+    document.getElementById("partner-modal-perk").textContent =
+      (card.getAttribute("data-benefit") || "").trim() || "Convenzione in aggiornamento";
+    textOrHide(document.getElementById("partner-modal-conditions"), (card.getAttribute("data-conditions") || "").trim());
+    textOrHide(document.getElementById("partner-modal-address"), (card.getAttribute("data-address") || "").trim());
+    textOrHide(document.getElementById("partner-modal-phone"), (card.getAttribute("data-phone") || "").trim());
+    textOrHide(document.getElementById("partner-modal-web"), (card.getAttribute("data-web") || "").trim());
+
+    var mapsUrl = (card.getAttribute("data-maps") || "").trim();
+    var mapsBtn = document.getElementById("partner-modal-maps");
+    if (mapsUrl) {
+      mapsBtn.hidden = false;
+      mapsBtn.href = mapsUrl;
+      mapsBtn.setAttribute("aria-label", "Dove si trova " + (card.getAttribute("data-name") || ""));
+    } else {
+      mapsBtn.hidden = true;
+      mapsBtn.removeAttribute("href");
+    }
+
+    var logoHost = document.getElementById("partner-modal-logo");
+    logoHost.innerHTML = "";
+    var sourceLogo = card.querySelector(".partner-logo");
+    if (sourceLogo && !sourceLogo.hidden && sourceLogo.naturalWidth) {
+      var clone = sourceLogo.cloneNode(true);
+      clone.removeAttribute("onerror");
+      logoHost.appendChild(clone);
+      logoHost.classList.remove("is-fallback");
+    } else {
+      var fallback = document.createElement("span");
+      fallback.className = "partner-logo-fallback";
+      fallback.textContent = card.getAttribute("data-name") || "";
+      logoHost.appendChild(fallback);
+      logoHost.classList.add("is-fallback");
+    }
+
+    modal.hidden = false;
+    document.body.classList.add("modal-open");
+    modal.querySelector(".partner-modal-close").focus();
+  }
+
+  document.querySelectorAll(".js-partner-detail").forEach(function (button) {
+    button.addEventListener("click", function () {
+      openPartnerModal(button.closest(".partner-slide"), button);
+    });
+  });
+
+  document.querySelectorAll(".js-modal-close").forEach(function (el) {
+    el.addEventListener("click", closePartnerModal);
+  });
+
+  document.addEventListener("keydown", function (event) {
+    if (event.key === "Escape") {
+      closePartnerModal();
+    }
   });
 })();
