@@ -31,6 +31,23 @@
     });
   }
 
+  var brand = document.querySelector("a.brand[href='#inizio']");
+  if (brand) {
+    brand.addEventListener("click", function (event) {
+      event.preventDefault();
+      setOpen(false);
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: reduceMotion ? "auto" : "smooth"
+      });
+      if (history.replaceState) {
+        history.replaceState(null, "", "#inizio");
+      }
+    });
+  }
+
   document.querySelectorAll('a[href=""], [data-pending-form]').forEach(function (el) {
     el.addEventListener("click", function (event) {
       if (!el.getAttribute("href")) {
