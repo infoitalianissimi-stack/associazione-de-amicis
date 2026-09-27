@@ -136,33 +136,89 @@
   var modal = document.getElementById("partner-modal");
   var lastFocus = null;
 
-  function slideWidth() {
-    var slide = track && track.querySelector(".partner-slide");
-    if (!slide) {
+  function slides() {
+    return track ? Array.prototype.slice.call(track.querySelectorAll(".partner-slide")) : [];
+  }
+
+  function slideStep() {
+    var items = slides();
+    if (items.length < 2) {
+      return items[0] ? items[0].getBoundingClientRect().width : 0;
+    }
+    return items[1].offsetLeft - items[0].offsetLeft;
+  }
+
+  function visibleCount() {
+    if (window.matchMedia("(min-width: 1100px)").matches) {
+      return 3;
+    }
+    if (window.matchMedia("(min-width: 720px)").matches) {
+      return 2;
+    }
+    return 1;
+  }
+
+  function maxIndex() {
+    return Math.max(0, slides().length - visibleCount());
+  }
+
+  function currentIndex() {
+    var step = slideStep();
+    if (!step) {
       return 0;
     }
-    var styles = window.getComputedStyle(track);
-    var gap = parseFloat(styles.columnGap || styles.gap) || 16;
-    return slide.getBoundingClientRect().width + gap;
+    return Math.round(track.scrollLeft / step);
   }
 
   function updateArrows() {
     if (!track || !prev || !next) {
       return;
     }
-    var max = track.scrollWidth - track.clientWidth - 4;
+    var max = Math.max(0, track.scrollWidth - track.clientWidth);
     prev.disabled = track.scrollLeft <= 4;
-    next.disabled = track.scrollLeft >= max;
+    next.disabled = max <= 4 || track.scrollLeft >= max - 16;
+  }
+
+  function goToPartner(delta) {
+    if (!track) {
+      return;
+    }
+    var items = slides();
+    var index = Math.min(maxIndex(), Math.max(0, currentIndex() + delta));
+    var target = items[index];
+    if (!target) {
+      return;
+    }
+    var left;
+    if (visibleCount() === 1) {
+      var trackRect = track.getBoundingClientRect();
+      var cardRect = target.getBoundingClientRect();
+      left = track.scrollLeft + (cardRect.left - trackRect.left) - (track.clientWidth - cardRect.width) / 2;
+    } else {
+      left = index * slideStep();
+      if (index >= maxIndex()) {
+        left = track.scrollWidth - track.clientWidth;
+      }
+    }
+    track.scrollTo({ left: Math.max(0, left), behavior: "smooth" });
   }
 
   if (track && prev && next) {
+    function startAtFirstCard() {
+      track.scrollLeft = 0;
+      updateArrows();
+    }
+    startAtFirstCard();
+    window.addEventListener("load", startAtFirstCard);
+    window.addEventListener("pageshow", startAtFirstCard);
     prev.addEventListener("click", function () {
-      track.scrollBy({ left: -slideWidth(), behavior: "smooth" });
+      goToPartner(-1);
     });
     next.addEventListener("click", function () {
-      track.scrollBy({ left: slideWidth(), behavior: "smooth" });
+      goToPartner(1);
     });
     track.addEventListener("scroll", updateArrows, { passive: true });
+    track.addEventListener("scrollend", updateArrows);
     window.addEventListener("resize", updateArrows);
     updateArrows();
   }
@@ -244,6 +300,18 @@
     document.getElementById("partner-modal-perk").textContent =
       (card.getAttribute("data-benefit") || "").trim() || "Convenzione in aggiornamento";
     textOrHide(document.getElementById("partner-modal-conditions"), (card.getAttribute("data-conditions") || "").trim());
+
+    var termsHost = document.getElementById("partner-modal-terms");
+    var termsSource = card.querySelector(".js-partner-terms");
+    if (termsHost) {
+      termsHost.innerHTML = "";
+      if (termsSource && termsSource.children.length) {
+        termsHost.innerHTML = termsSource.innerHTML;
+        termsHost.hidden = false;
+      } else {
+        termsHost.hidden = true;
+      }
+    }
     textOrHide(document.getElementById("partner-modal-address"), (card.getAttribute("data-address") || "").trim());
     textOrHide(document.getElementById("partner-modal-phone"), (card.getAttribute("data-phone") || "").trim());
     textOrHide(document.getElementById("partner-modal-web"), (card.getAttribute("data-web") || "").trim());
